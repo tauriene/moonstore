@@ -26,6 +26,7 @@ body {
   font-weight: 300;
   min-height: 100vh;
   cursor: default;
+  overflow-x: hidden;
 }
 
 /* ── HEADER ── */
@@ -69,13 +70,15 @@ header {
   flex: 1;
   max-width: 440px;
   position: relative;
+  display: flex;
+  align-items: center;
 }
 .header-search input {
   width: 100%;
   background: var(--surface);
   border: 1px solid var(--border);
   border-radius: 6px;
-  padding: 9px 16px 9px 40px;
+  padding: 9px 36px 9px 40px;
   color: var(--text);
   font-family: var(--font-body);
   font-size: 13px;
@@ -84,13 +87,28 @@ header {
 }
 .header-search input::placeholder { color: var(--text-dim); }
 .header-search input:focus { border-color: var(--border-hover); }
-.header-search svg {
+.header-search svg.search-icon-inside {
   position: absolute;
   left: 13px; top: 50%;
   transform: translateY(-50%);
   color: var(--text-dim);
   pointer-events: none;
 }
+.close-search-btn {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  color: var(--text-muted);
+  cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  transition: color 0.2s;
+  padding: 0;
+}
+.close-search-btn:hover { color: var(--text); }
+.mobile-search-toggle { display: none; }
 
 .header-actions {
   display: flex;
@@ -376,7 +394,11 @@ nav .nav-link.special:hover { color: #e87070; }
   font-size: 14px;
   color: var(--text-muted);
   line-height: 1.4;
-  flex: 1;
+  flex-grow: 1;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
 
 .card-footer {
@@ -483,6 +505,7 @@ nav .nav-link.special:hover { color: #e87070; }
   font-size: 12px;
   color: var(--text-dim);
   letter-spacing: 0.06em;
+  white-space: nowrap;
 }
 .toolbar-sort {
   display: flex;
@@ -507,11 +530,12 @@ nav .nav-link.special:hover { color: #e87070; }
 /* ── CHAT WIDGET ── */
 .chat-bubble {
   position: fixed;
-  bottom: 28px; right: 28px;
+  bottom: 20px; right: 16px;
   z-index: 200;
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 10px;
+  max-width: calc(100vw - 32px);
 }
 .chat-label {
   background: var(--surface2);
@@ -602,7 +626,35 @@ footer ul li a:hover { color: var(--text); }
   .products-grid .card:nth-child(5) .card-image { height: 280px; }
 }
 @media (max-width: 768px) {
-  header { padding: 0 20px; gap: 16px; }
+  .hide-on-mobile { display: none; }
+  header { 
+    padding: 0 16px; 
+    gap: 12px; 
+    justify-content: space-between;
+  }
+  
+  .header-search { display: none; }
+  .header-search.expanded {
+    display: flex;
+    flex: 1;
+    max-width: 100%;
+    animation: fadeSlideRight 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+  }
+  header.search-expanded .logo { display: none; }
+  .header-actions.hidden { display: none; }
+  
+  .mobile-search-toggle { display: flex; }
+  .header-actions { gap: 6px; }
+  
+  .icon-btn { width: 34px; height: 34px; }
+  .logo-name { font-size: 18px; }
+  .logo-sub { font-size: 9px; }
+
+  @keyframes fadeSlideRight {
+    from { opacity: 0; transform: translateX(10px); }
+    to { opacity: 1; transform: translateX(0); }
+  }
+
   nav { padding: 0 20px; }
   .hero-strip { padding: 32px 20px 24px; flex-direction: column; align-items: flex-start; }
   .hero-meta { text-align: left; }
@@ -614,8 +666,26 @@ footer ul li a:hover { color: var(--text); }
   footer { padding: 32px 20px; grid-template-columns: 1fr 1fr; }
   .footer-bottom { padding: 16px 20px; flex-direction: column; gap: 8px; text-align: center; }
   .header-phone { display: none; }
+  /* Optional: hide telegram on mobile if too crowded, but let's keep it for now and see if 4 icons fit */
   .add-btn { opacity: 1; transform: none; }
   .wish-btn { opacity: 1; transform: none; }
+  /* На мобильных: кнопки в колонку, «В корзину» — полная ширина */
+  .card-footer {
+    flex-direction: column;
+    gap: 8px;
+    padding: 0 12px 14px;
+  }
+  .card-footer .add-btn {
+    width: 100%;
+    padding: 10px 0;
+    font-size: 11px;
+  }
+  .card-footer .wish-btn {
+    display: none;
+  }
+  .card-body { padding: 10px 12px 6px; }
+  .card-name { font-size: 12px; -webkit-line-clamp: 2; }
+  .products-grid .card:nth-child(5) .card-name { font-size: 12px; }
 }
 
 /* ── CART DRAWER ── */

@@ -13,8 +13,17 @@ function Header() {
   const { search, setSearch } = useFilterStore();
   const setCartOpen = useUIStore(s => s.setCartOpen);
 
+  const [isSearchExpanded, setIsSearchExpanded] = React.useState(false);
+  const searchInputRef = React.useRef(null);
+
+  React.useEffect(() => {
+    if (isSearchExpanded && searchInputRef.current) {
+      searchInputRef.current.focus();
+    }
+  }, [isSearchExpanded]);
+
   return (
-    <header>
+    <header className={isSearchExpanded ? 'search-expanded' : ''}>
       <button
         className="logo"
         style={{ background: 'none', border: 'none', cursor: 'pointer', padding: 0, textAlign: 'left' }}
@@ -25,30 +34,52 @@ function Header() {
         <span className="logo-sub">Flower Studio</span>
       </button>
 
-      <div className="header-search">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+      <div className={`header-search ${isSearchExpanded ? 'expanded' : ''}`}>
+        <svg className="search-icon-inside" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
           <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
         </svg>
         <input
+          ref={searchInputRef}
           type="text"
-          placeholder="Найти букет, повод, цветок…"
+          placeholder="Найти букет, повод…"
           value={search}
           onChange={(e) => setSearch(e.target.value)}
           aria-label="Поиск по каталогу"
         />
+        {isSearchExpanded && (
+          <button 
+            className="close-search-btn" 
+            onClick={() => { setIsSearchExpanded(false); setSearch(''); }}
+            aria-label="Закрыть поиск"
+          >
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+              <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+            </svg>
+          </button>
+        )}
       </div>
 
-      <div className="header-actions">
+      <div className={`header-actions ${isSearchExpanded ? 'hidden' : ''}`}>
         <div className="header-phone">
           <a href="tel:88005501900">8 800 550 19 00</a>
           <span>Ежедневно · Круглосуточно</span>
         </div>
 
-        <a href="https://t.me/moonstore_bot" target="_blank" rel="noopener noreferrer" style={{ textDecoration: 'none' }}>
+        <a href="https://t.me/moonstore_bot" target="_blank" rel="noopener noreferrer" style={{ textDecoration: 'none' }} className="action-telegram">
           <button className="icon-btn" aria-label="Написать в Telegram">
             <FaTelegramPlane size={16} />
           </button>
         </a>
+
+        <button 
+          className="icon-btn mobile-search-toggle" 
+          onClick={() => setIsSearchExpanded(true)}
+          aria-label="Открыть поиск"
+        >
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+            <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
+          </svg>
+        </button>
 
         <button
           className="icon-btn"

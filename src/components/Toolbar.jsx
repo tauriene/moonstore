@@ -17,7 +17,9 @@ function Toolbar() {
 
   return (
     <div className="toolbar" style={{ marginTop: '32px' }}>
-      <span className="toolbar-count">Показано {filtered.length} из {allProducts.length} букетов</span>
+      <span className="toolbar-count">
+        Показано {filtered.length} из {allProducts.length} <span className="hide-on-mobile">букетов</span>
+      </span>
       <div className="toolbar-sort">
         <span>Сортировка:</span>
         <select className="sort-select" value={sort} onChange={(e) => setSort(e.target.value)}>
