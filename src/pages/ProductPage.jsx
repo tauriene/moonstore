@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
+import { Helmet } from 'react-helmet-async';
 import { products } from '../data/products';
 import { useCartStore } from '../store/cartStore';
 import { useWishlistStore } from '../store/wishlistStore';
@@ -7,6 +8,7 @@ import { formatPrice } from '../utils/format';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import ProductCard from '../components/ProductCard';
+import toast from 'react-hot-toast';
 
 function ProductPage() {
   const { slug } = useParams();
@@ -36,6 +38,7 @@ function ProductPage() {
 
   const handleAdd = () => {
     addItem(product, qty);
+    toast.success('Добавлено в корзину');
     setBtnText('✓ Добавлено');
     setBtnStyle({ background: 'var(--green, #4a9e6e)' });
     setTimeout(() => {
@@ -44,10 +47,21 @@ function ProductPage() {
     }, 1800);
   };
 
+  const handleWish = () => {
+    toggle(product.id);
+    if (!liked) {
+      toast.success('Добавлено в избранное');
+    }
+  };
+
   const similarProducts = products.filter(p => p.category === product.category && p.id !== product.id).slice(0, 4);
 
   return (
     <>
+      <Helmet>
+        <title>{`${product.name} купить в Москве | MOONSTORE`}</title>
+        <meta name="description" content={`Купить ${product.name} с экспресс-доставкой по Москве. ${product.description}`} />
+      </Helmet>
       <Header />
       <div className="product-page">
         <div className="breadcrumbs">
@@ -60,7 +74,7 @@ function ProductPage() {
 
         <div className="product-layout">
           <div className="product-gallery">
-            <img src={product.imageUrl} alt={product.name} />
+            <img src={product.imageUrl} alt={product.name} loading="lazy" />
           </div>
           <div className="product-info-panel">
             <h1>{product.name}</h1>
@@ -92,7 +106,7 @@ function ProductPage() {
               <button
                 className={`wish-btn${liked ? ' liked' : ''}`}
                 style={{ opacity: 1, transform: 'none', width: '48px', height: '48px', marginLeft: '16px' }}
-                onClick={() => toggle(product.id)}
+                onClick={handleWish}
                 aria-label={liked ? 'Убрать из избранного' : 'Добавить в избранное'}
               >
                 <svg width="20" height="20" viewBox="0 0 24 24" fill={liked ? 'currentColor' : 'none'} stroke="currentColor" strokeWidth="1.5">

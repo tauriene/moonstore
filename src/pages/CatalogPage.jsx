@@ -1,4 +1,5 @@
 import React from 'react';
+import { Helmet } from 'react-helmet-async';
 import Header from '../components/Header';
 import Nav from '../components/Nav';
 import HeroStrip from '../components/HeroStrip';
@@ -11,6 +12,10 @@ import Footer from '../components/Footer';
 function CatalogPage() {
   return (
     <>
+      <Helmet>
+        <title>MOONSTORE — Авторская флористика и доставка цветов в Москве</title>
+        <meta name="description" content="Купить премиальные букеты, монобукеты и авторские композиции с доставкой по Москве от 60 минут." />
+      </Helmet>
       <Header />
       <Nav />
       <HeroStrip />

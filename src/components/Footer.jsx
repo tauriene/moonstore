@@ -1,6 +1,25 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useFilterStore } from '../store/filterStore';
 
 function Footer() {
+  const navigate = useNavigate();
+  const { setCategory, setTag } = useFilterStore();
+
+  const handleCategoryClick = (e, category) => {
+    e.preventDefault();
+    setCategory(category);
+    navigate('/');
+    window.scrollTo(0, 0);
+  };
+
+  const handleTagClick = (e, tag) => {
+    e.preventDefault();
+    setTag(tag);
+    navigate('/');
+    window.scrollTo(0, 0);
+  };
+
   return (
     <>
       <footer>
@@ -14,30 +33,19 @@ function Footer() {
         <div>
           <h4>Каталог</h4>
           <ul>
-            <li><a href="#">Все букеты</a></li>
-            <li><a href="#">Розы</a></li>
-            <li><a href="#">Пионовидные</a></li>
-            <li><a href="#">Premium</a></li>
-            <li><a href="#">Новая коллекция</a></li>
-          </ul>
-        </div>
-        <div>
-          <h4>Компания</h4>
-          <ul>
-            <li><a href="#">О нас</a></li>
-            <li><a href="#">Флористы</a></li>
-            <li><a href="#">Доставка и оплата</a></li>
-            <li><a href="#">Отзывы</a></li>
-            <li><a href="#">Блог</a></li>
+            <li><a href="/" onClick={(e) => handleCategoryClick(e, 'all')}>Все букеты</a></li>
+            <li><a href="/" onClick={(e) => handleCategoryClick(e, 'roses')}>Розы</a></li>
+            <li><a href="/" onClick={(e) => handleCategoryClick(e, 'peonies')}>Пионовидные</a></li>
+            <li><a href="/" onClick={(e) => handleTagClick(e, 'premium')}>Premium</a></li>
+            <li><a href="/" onClick={(e) => handleTagClick(e, 'new')}>Новая коллекция</a></li>
           </ul>
         </div>
         <div>
           <h4>Контакты</h4>
           <ul>
-            <li><a href="tel:88005501900">8 800 550 19 00</a></li>
-            <li><a href="#">Telegram</a></li>
-            <li><a href="#">WhatsApp</a></li>
-            <li><a href="#">info@moonstore.ru</a></li>
+            <li><a href="tel:88005501900">+7 (800) 550-19-00</a></li>
+            <li><a href="https://t.me/moonstoremoskwa_bot" target="_blank" rel="noopener noreferrer">Telegram</a></li>
+            <li><a href="mailto:info@moonstore.ru">info@moonstore.ru</a></li>
           </ul>
         </div>
       </footer>

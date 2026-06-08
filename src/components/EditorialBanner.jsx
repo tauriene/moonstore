@@ -7,9 +7,19 @@ function EditorialBanner() {
   const setCategory = useFilterStore(s => s.setCategory);
 
   const handleClick = () => {
-    setCategory('new');
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-    navigate('/');
+    useFilterStore.getState().setCategory('all');
+    useFilterStore.getState().setTag('author');
+    
+    // Плавный скролл к каталогу (к тулбару или сетке товаров)
+    setTimeout(() => {
+      const toolbar = document.querySelector('.toolbar');
+      if (toolbar) {
+        window.scrollTo({
+          top: toolbar.offsetTop - 80,
+          behavior: 'smooth'
+        });
+      }
+    }, 50);
   };
 
   return (

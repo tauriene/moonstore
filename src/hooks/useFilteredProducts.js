@@ -21,7 +21,12 @@ export function useFilteredProducts() {
 
     // Категория (nav) — 'all' показывает всё
     if (category !== 'all') {
-      result = result.filter(p => p.category === category);
+      result = result.filter(p => {
+        if (Array.isArray(p.category)) {
+          return p.category.includes(category);
+        }
+        return p.category === category;
+      });
     }
 
     // Тег (filter pill)

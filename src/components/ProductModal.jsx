@@ -5,6 +5,7 @@ import { useCartStore } from '../store/cartStore';
 import { useWishlistStore } from '../store/wishlistStore';
 import { formatPrice } from '../utils/format';
 import { useModalLock } from '../hooks/useModalLock';
+import toast from 'react-hot-toast';
 
 function ProductModal() {
   const { modalProduct: product, closeModal } = useUIStore();
@@ -20,7 +21,15 @@ function ProductModal() {
 
   const handleAdd = () => {
     addItem(product);
+    toast.success('Добавлено в корзину');
     closeModal();
+  };
+
+  const handleWish = () => {
+    toggle(product.id);
+    if (!liked) {
+      toast.success('Добавлено в избранное');
+    }
   };
 
   const handleMore = () => {
@@ -75,7 +84,7 @@ function ProductModal() {
               <button
                 className={`wish-btn${liked ? ' liked' : ''}`}
                 style={{ opacity: 1, transform: 'none', width: '44px', height: '44px' }}
-                onClick={() => toggle(product.id)}
+                onClick={handleWish}
                 aria-label={liked ? 'Убрать из избранного' : 'Добавить в избранное'}
               >
                 <svg width="16" height="16" viewBox="0 0 24 24" fill={liked ? 'currentColor' : 'none'} stroke="currentColor" strokeWidth="1.5">

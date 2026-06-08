@@ -1,6 +1,5 @@
 import React from 'react';
-import { BsLightningFill } from 'react-icons/bs';
-import { useFilterStore, SORT_OPTIONS } from '../store/filterStore';
+import { useFilterStore } from '../store/filterStore';
 
 const navItems = [
   { label: 'Все букеты', category: 'all' },
@@ -9,9 +8,8 @@ const navItems = [
   { label: 'Пионовидные', category: 'peonies' },
   { label: 'Хризантемы', category: 'chrysanthemums' },
   { label: 'Полевые', category: 'field' },
-  { label: 'Экспресс', category: 'express', special: true, icon: <BsLightningFill /> },
+  { label: 'Монобукеты', category: 'mono' },
   { label: 'Букет невесты', category: 'bridal' },
-  { label: 'Новая коллекция', category: 'new' },
   { label: 'Корпоративные', category: 'corporate' },
 ];
 
@@ -23,10 +21,9 @@ function Nav() {
       {navItems.map((item) => (
         <button
           key={item.category}
-          className={`nav-link ${category === item.category ? 'active' : ''} ${item.special ? 'special' : ''}`}
+          className={`nav-link ${category === item.category ? 'active' : ''}`}
           onClick={() => setCategory(item.category)}
         >
-          {item.icon && <span style={{ marginRight: '4px', display: 'inline-flex', alignItems: 'center' }}>{item.icon}</span>}
           {item.label}
         </button>
       ))}

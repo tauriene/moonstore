@@ -2,6 +2,7 @@ import React from 'react';
 import { useFilterStore, SORT_OPTIONS } from '../store/filterStore';
 import { useFilteredProducts } from '../hooks/useFilteredProducts';
 import { products as allProducts } from '../data/products';
+import CustomSelect from './CustomSelect';
 
 const sortLabels = [
   { value: SORT_OPTIONS.POPULAR, label: 'Популярные' },
@@ -21,12 +22,12 @@ function Toolbar() {
         Показано {filtered.length} из {allProducts.length} <span className="hide-on-mobile">букетов</span>
       </span>
       <div className="toolbar-sort">
-        <span>Сортировка:</span>
-        <select className="sort-select" value={sort} onChange={(e) => setSort(e.target.value)}>
-          {sortLabels.map(({ value, label }) => (
-            <option key={value} value={value}>{label}</option>
-          ))}
-        </select>
+        <span className="hide-on-mobile">Сортировка:</span>
+        <CustomSelect 
+          options={sortLabels}
+          value={sort}
+          onChange={setSort}
+        />
       </div>
     </div>
   );

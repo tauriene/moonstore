@@ -5,12 +5,12 @@ import { useFilterStore } from '../store/filterStore';
 
 const filters = [
   { icon: <BsFire />, label: 'Скидки', tag: 'sale' },
-  { icon: <GiFlowerEmblem />, label: 'Выбор флориста', tag: 'florist' },
-  { icon: <BsStars />, label: 'Тренды', tag: 'trend' },
-  { icon: <BsGem />, label: 'Premium', tag: 'premium' },
   { icon: <BsLightningFill />, label: 'Экспресс', tag: 'express' },
-  { icon: <GiPlantSeed />, label: 'Необычное', tag: 'unusual' },
+  { icon: <BsStars />, label: 'Новинки', tag: 'new' },
+  { icon: <BsGem />, label: 'Premium', tag: 'premium' },
+  { icon: <GiFlowerEmblem />, label: 'Тренды', tag: 'trend' },
   { icon: <BsPalette />, label: 'Авторские', tag: 'author' },
+  { icon: <GiPlantSeed />, label: 'Необычное', tag: 'unusual' },
   { icon: <BsGift />, label: 'На любой случай', tag: 'gift' },
 ];
 
