@@ -21,7 +21,7 @@ function App() {
   return (
     <BrowserRouter>
       <ScrollToTop />
-      <Toaster 
+      <Toaster
         position="bottom-center"
         toastOptions={{
           style: {
