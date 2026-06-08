@@ -359,16 +359,16 @@ nav .nav-link.special:hover {
   gap: 2px;
 }
 
-/* featured card spans 2 columns */
-.products-grid .card:nth-child(5) {
+/* featured card spans 2 columns — uses explicit .featured class */
+.products-grid .card.featured {
   grid-column: span 2;
 }
 
-.products-grid .card:nth-child(5) .card-image {
+.products-grid .card.featured .card-image {
   height: 420px;
 }
 
-.products-grid .card:nth-child(5) .card-name {
+.products-grid .card.featured .card-name {
   font-size: 20px;
 }
 

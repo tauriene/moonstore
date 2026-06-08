@@ -42,7 +42,7 @@ function ProductsGrid() {
               <ProductCardSkeleton key={`skel-${i}`} />
             ))
           : visible.map((p) => (
-              <ProductCard key={p.id} product={p} />
+              <ProductCard key={p.id} product={p} featured={!!p.featured} />
             ))
         }
       </div>

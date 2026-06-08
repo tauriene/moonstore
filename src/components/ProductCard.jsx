@@ -70,7 +70,7 @@ function ProductCard({ product, featured = false }) {
     >
       <div className="card-image">
         {product.imageUrl ? (
-          <img src={product.imageUrl} alt={product.name} loading="lazy" />
+          <img src={product.imageUrl} alt={product.name} />
         ) : (
           <div className="placeholder" aria-hidden="true" />
         )}

@@ -69,6 +69,7 @@ export const products = [
     category: 'peonies',
     tags: ['new', 'author', 'premium'],
     discount: null,
+    featured: true,
     imageUrl: '/images/moonlight_exclusive.webp',
     description: 'Эксклюзивная работа нашего главного флориста. Пастельные оттенки и нежная флористика.',
     composition: 'Пионовидные розы, орхидеи, экзотическая зелень',
