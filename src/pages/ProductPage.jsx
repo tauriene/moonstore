@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { Helmet } from 'react-helmet-async';
 import { products } from '../data/products';
 import { useCartStore } from '../store/cartStore';
 import { useWishlistStore } from '../store/wishlistStore';
@@ -58,10 +57,6 @@ function ProductPage() {
 
   return (
     <>
-      <Helmet>
-        <title>{`${product.name} купить в Москве | MOONSTORE`}</title>
-        <meta name="description" content={`Купить ${product.name} с экспресс-доставкой по Москве. ${product.description}`} />
-      </Helmet>
       <Header />
       <div className="product-page">
         <div className="breadcrumbs">
