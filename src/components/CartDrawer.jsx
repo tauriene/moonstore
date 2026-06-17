@@ -14,16 +14,20 @@ function CartDrawer() {
 
   useModalLock(cartOpen, () => setCartOpen(false));
 
-  if (!cartOpen) return null;
-
   return (
     <>
-      <div className="cart-overlay" onClick={() => setCartOpen(false)} aria-hidden="true" />
       <div
-        className="cart-drawer open"
+        className={`cart-overlay${cartOpen ? ' cart-overlay--visible' : ''}`}
+        onClick={() => setCartOpen(false)}
+        aria-hidden="true"
+        style={{ pointerEvents: cartOpen ? 'auto' : 'none' }}
+      />
+      <div
+        className={`cart-drawer${cartOpen ? ' open' : ''}`}
         role="dialog"
-        aria-modal="true"
+        aria-modal={cartOpen}
         aria-label="Корзина"
+        style={{ pointerEvents: cartOpen ? 'auto' : 'none' }}
       >
         <div className="cart-header">
           <button className="cart-close" onClick={() => setCartOpen(false)} aria-label="Закрыть корзину">

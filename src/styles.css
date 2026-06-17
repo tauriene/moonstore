@@ -1042,9 +1042,10 @@ footer ul li a:hover {
   border-left: 1px solid var(--border);
   z-index: 300;
   transform: translateX(100%);
-  transition: transform 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  transition: transform 0.38s cubic-bezier(0.25, 0.46, 0.45, 0.94);
   display: flex;
   flex-direction: column;
+  will-change: transform;
 }
 
 .cart-drawer.open {
@@ -1057,6 +1058,14 @@ footer ul li a:hover {
   background: rgba(0, 0, 0, 0.5);
   backdrop-filter: blur(4px);
   z-index: 299;
+  opacity: 0;
+  transition: opacity 0.38s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  pointer-events: none;
+}
+
+.cart-overlay.cart-overlay--visible {
+  opacity: 1;
+  pointer-events: auto;
 }
 
 .cart-header {
